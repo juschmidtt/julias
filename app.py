@@ -30,4 +30,23 @@ def listafilmes():
 def encontrartitulo():
     titulo = request.args.get('titulo')
     if not titulo:
-        return jsonify({'error': 'É necessário inserir um título'}), 400
+        return jsonify({'Erro': 'É necessário inserir um título'}), 400
+    
+
+    dadosint = db.pesquiar_f_t(titulo)
+    if dadosint:
+        return jsonify(dadosint[5]) 
+    
+    dadosext = buscasapi({'t': titulo})
+    if dadosext: 
+        db.salvarfilme(dadosext)
+        return jsonify(dadosext)
+    
+
+    return jsonify({'Erro': 'Filme não localizado'})
+
+@app.route('/pesquisar/id', methods=['GET'])
+def encontrarid():
+    imdb_id = request.args.get('id')
+    if not imdb_id:
+        return jsonify({'Erro': 'É necessário inserir um id'})
