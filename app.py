@@ -1,5 +1,6 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import requests
+import banco_dados as db
 
 url = "https://www.omdbapi.com/?apikey=c45ea72&"
 
