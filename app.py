@@ -17,16 +17,17 @@ def busca_api(parametros):
             return dados
     return None
 
-@app.route("/titulo", methods=["GET"])
-def titulo():
-    dados = request.json()
-    titulo2 = dados["titulo"]
-    requests.get(url + "t=" + titulo2)
+@app.route("/filme", methods=["GET"])
+def listafilmes():
+   with db.conexao.cursor() as cur:
+        cur.execute("SELECT titulo FROM filmes")
+        filmes = cur.fetchall()
+        return jsonify([f[0] for f in filmes])
 
 
 
-@app.route("/id", methods=["GET"])
-def id1():
-    dados = request.json()
-    id2 = dados["id"]
-    requests.get(url + "i=" + id2)
+@app.route("/pesquisar/titulos", methods=["GET"])
+def encontrartitulo():
+    titulo = request.args.get('titulo')
+    if not titulo:
+        return jsonify({'error': 'É necessário inserir um título'}), 400
