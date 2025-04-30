@@ -1,6 +1,7 @@
-from flask import Flask, request, jsonify
-import requests
-import banco_dados as db
+from configuracoes import CHAVE, URLOMDB
+from flask import Flask, request, jsonify # type: ignore
+import requests  # type: ignore
+import bd as db
 
 url = "https://www.omdbapi.com/?apikey=c45ea72&"
 
@@ -37,7 +38,7 @@ def encontrartitulo():
     if dadosint:
         return jsonify(dadosint[5]) 
     
-    dadosext = buscasapi({'t': titulo})
+    dadosext = busca_api({'t': titulo})
     if dadosext: 
         db.salvarfilme(dadosext)
         return jsonify(dadosext)
@@ -50,3 +51,17 @@ def encontrarid():
     imdb_id = request.args.get('id')
     if not imdb_id:
         return jsonify({'Erro': 'É necessário inserir um id'})
+    
+    dadosint = db.buscar_f_id(imdb_id)
+    if dadosint:
+        return jsonify(dadosint[5])
+
+    dadosext = busca_api({'i': imdb_id})
+    if dadosext:
+        db.salvarfilme(dadosext)
+        return jsonify(dadosext)
+    
+    return jsonify({'Erro': 'Filme não localizado'})
+
+if __name__ == '__main__':
+    app.run(debug=True)
