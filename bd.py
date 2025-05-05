@@ -1,11 +1,7 @@
 import os
 import psycopg
-
 import json
-
-
-
-from config import URLBD# type: ignore
+from configuracoes import URLBD  # Corrigido o import
 
 conexao = psycopg.connect(URLBD)
 conexao.execute("""
@@ -20,23 +16,25 @@ conexao.execute("""
 """)
 conexao.commit()
 
+
 def encontrarfilme_titulo(titulo):
     with conexao.cursor() as cur:
         cur.execute("SELECT * FROM filmes WHERE titulo = %s", (titulo,))
         return cur.fetchone()
 
+
 def encontrarfilme_id(imdb_id):
     with conexao.cursor() as cur:
-        cur.execute("SELECT * FROM filmes WHERE id_imdb = %s", (imdb_id,))
+        cur.execute("SELECT * FROM filmes WHERE imdb_id = %s", (imdb_id,))
         return cur.fetchone()
 
 
 def salvarfilme(filme):
     with conexao.cursor() as cur:
         cur.execute("""
-            INSERT INTO filmes (id_imdb, titulo, ano, tipo, data)
+            INSERT INTO filmes (imdb_id, titulo, ano, tipo, data)
             VALUES (%s, %s, %s, %s, %s)
-            ON CONFLICT (id_imdb) DO NOTHING
+            ON CONFLICT (imdb_id) DO NOTHING
         """, (
             filme.get("imdbID"),
             filme.get("Title"),
@@ -44,3 +42,4 @@ def salvarfilme(filme):
             filme.get("Type"),
             json.dumps(filme)
         ))
+    conexao.commit()
