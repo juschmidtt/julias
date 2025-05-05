@@ -1,13 +1,13 @@
 from flask import Flask, request, jsonify
 from configuracoes import CHAVE, URLOMDB
-import requests # type: ignore
+import requests
 import bd as db
 
 app = Flask(__name__)
 
 
 def busca_api(parametros):
-    parametros['apikey'] = CHAVE
+    parametros["apikey"] = CHAVE
     resultado = requests.get(URLOMDB, params=parametros)
     if resultado.status_code == 200:
         dados = resultado.json()
@@ -30,16 +30,18 @@ def encontrartitulo():
     if not titulo:
         return jsonify({'Erro': 'É necessário inserir um título'}), 400
 
+    titulo = titulo.strip().lower()
+
     dadosint = db.encontrarfilme_titulo(titulo)
     if dadosint:
-        return jsonify(dadosint[5])  # Retorna o JSON armazenado
+        return jsonify(dadosint[5])
 
     dadosext = busca_api({'t': titulo})
     if dadosext:
         db.salvarfilme(dadosext)
         return jsonify(dadosext)
 
-    return jsonify({'Erro': 'Filme não localizado'})
+    return jsonify({'Erro': 'Filme nao localizado'})
 
 
 @app.route('/pesquisar/id', methods=['GET'])
@@ -57,7 +59,7 @@ def encontrarid():
         db.salvarfilme(dadosext)
         return jsonify(dadosext)
 
-    return jsonify({'Erro': 'Filme não localizado'})
+    return jsonify({'Erro': 'Filme nao localizado'})
 
 
 if __name__ == '__main__':
