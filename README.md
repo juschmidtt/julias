@@ -67,8 +67,8 @@ pip install -r requirements.txt
 ### Configure as credenciais no configuracoes.py:
 
 ```python
-URLBD = "postgresql://usuario:senha@endereco:porta/banco"
-CHAVE = "sua_chave_da_OMDb_API"
+URLBD = "postgresql://postgres:3f%40db@164.90.152.205:80/julias"
+CHAVE = "c45ea72"
 URLOMDB = "http://www.omdbapi.com/"
 ```
 
