@@ -1,6 +1,6 @@
+from flask import Flask, request, jsonify
 from configuracoes import CHAVE, URLOMDB
-from flask import Flask, request, jsonify # type: ignore
-import requests  # type: ignore
+import requests
 import bd as db
 
 url = "https://www.omdbapi.com/?apikey=c45ea72&"
