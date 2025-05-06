@@ -46,12 +46,6 @@ Busca pelo ID único do IMDb.
 Também salva no banco se for a primeira vez que é buscado.
 
 ## Como Rodar Localmente
-### Pré-requisitos
-Python 3.8 ou superior
-
-Banco de dados PostgreSQL
-
-Uma chave gratuita da OMDb API
 
 ### Clone o repositório:
 ```bash
