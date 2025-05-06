@@ -59,9 +59,11 @@ git clone https://github.com/juschmidtt/julias.git
 cd julias
 ```
 
-### Instale as dependências:
+### Ações necessárias para rodar o código:
 ```bash
-pip install -r requirements.txt
+.venv\Scripts\activate
+pip install flask
+pip install flask psicopg[binary] requests
 ```
 
 ### Configure as credenciais no configuracoes.py:
