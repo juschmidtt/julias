@@ -50,22 +50,14 @@ Também salva no banco se for a primeira vez que é buscado.
 ### Clone o repositório:
 ```bash
 git clone https://github.com/juschmidtt/julias.git
-cd julias
+cd julias-main
 ```
 
-### Ações necessárias para rodar o código:
+### Ações necessárias para rodar o código (cmd):
 ```bash
+python -m venv .venv
 .venv\Scripts\activate
-pip install flask
-pip install flask psicopg[binary] requests
-```
-
-### Configure as credenciais no configuracoes.py:
-
-```python
-URLBD = "postgresql://postgres:3f%40db@164.90.152.205:80/julias"
-CHAVE = "c45ea72"
-URLOMDB = "http://www.omdbapi.com/"
+pip install flask psycopg[binary] requests
 ```
 
 ### Rode a aplicação:
