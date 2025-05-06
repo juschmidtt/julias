@@ -1,4 +1,3 @@
-import os
 import psycopg
 import json
 from configuracoes import URLBD  # Corrigido o import
